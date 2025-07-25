@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Responsive Bank App</title>
+    <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+    <main>
+        <section class="bank">
+            <div class="bankContainer">
+                <div class="bankBox">
+                    <h2>Create Bank Account</h2>
+                    <form id="bankForm">
+                        <label>Name:</label>
+                        <input type="text" class="input" id="name" required>
+
+                        <label>Account No:</label>
+                        <input type="number" class="input" id="accNo" required>
+
+                        <button class="btn" type="submit">Create Account</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section class="cardsSection" id="cardContainer">
+            <!-- Account cards will appear here -->
+        </section>
+    </main>
+    <script src="./script.js"></script>
+</body>
+
+</html>
