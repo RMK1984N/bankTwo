@@ -5,17 +5,18 @@ document.getElementById("bankForm").addEventListener("submit", function (e) {
 
   const name = document.getElementById("name").value.trim();
   const accNo = document.getElementById("accNo").value.trim();
+  const age = parseInt(document.getElementById("age").value.trim());
+  const init = parseFloat(document.getElementById("initBalance").value.trim());
 
-  if (!name || !accNo) return alert("Please fill all fields.");
+  if (!name || !accNo || isNaN(age) || isNaN(init)) {
+    return alert("Please fill all fields correctly.");
+  }
 
-  const age = parseInt(prompt("Enter your age:"));
-  if (isNaN(age) || age < 18) return alert("You must be 18+ to create an account.");
-
-  const init = parseFloat(prompt("Enter initial balance:"));
-  if (isNaN(init) || init < 0) return alert("Invalid initial balance.");
+  if (age < 18) return alert("You must be 18+ to create an account.");
+  if (init < 0) return alert("Initial balance must be 0 or more.");
 
   const account = {
-    id: Date.now(), // Unique ID
+    id: Date.now(),
     name,
     accNo,
     balance: init,
@@ -23,7 +24,7 @@ document.getElementById("bankForm").addEventListener("submit", function (e) {
 
   accounts.push(account);
   renderAccounts();
-  e.target.reset(); // Clear the form
+  e.target.reset();
 });
 
 function renderAccounts() {
@@ -39,6 +40,7 @@ function renderAccounts() {
       <p><strong>Balance:</strong> ₹<span id="bal-${acc.id}">${acc.balance.toFixed(2)}</span></p>
       <button class="btn" onclick="deposit(${acc.id})">Deposit</button>
       <button class="btn" onclick="withdraw(${acc.id})">Withdraw</button>
+      <button class="btn" onclick="deleteAccount(${acc.id})">Delete Account</button>
     `;
     container.appendChild(card);
   });
@@ -62,6 +64,11 @@ function withdraw(id) {
 
   acc.balance -= amount;
   updateBalance(acc);
+}
+
+function deleteAccount(id) {
+  accounts = accounts.filter((a) => a.id !== id);
+  renderAccounts();
 }
 
 function updateBalance(acc) {
